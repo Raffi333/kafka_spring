@@ -11,6 +11,7 @@ import rh.example.kafka_spring.repository.ProductRepository;
 
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class ProductService {
@@ -24,15 +25,14 @@ public class ProductService {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public String createProduct(CreateProductDto productDto) {
-
+    public String createProduct(CreateProductDto productDto) throws ExecutionException, InterruptedException {
         Product product = new Product();
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
         product.setQuantity(productDto.getQuantity());
         productRepository.save(product);
-
-        if (product.getId() != null) {
+        boolean sync = true;
+        if (product.getId() != null && !sync) {
             String productId = String.valueOf(product.getId());
             CompletableFuture<SendResult<String, Product>> future =
                     kafkaTemplate.send("product-created-event-topic", productId, product);
@@ -43,6 +43,15 @@ public class ProductService {
                     LOGGER.info("message send successfully :{}", result.getRecordMetadata());
                 }
             });
+            future.join();
+            LOGGER.info("Return: {}", productId);
+            return productId;
+        } else if (product.getId() != null && sync) {
+            String productId = String.valueOf(product.getId());
+            SendResult<String, Product> result =
+                    kafkaTemplate.send("product-created-event-topic", productId, product).get();
+
+            LOGGER.info("Topic is: {}", result.getRecordMetadata().topic());
             LOGGER.info("Return: {}", productId);
             return productId;
         }

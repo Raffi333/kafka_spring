@@ -1,8 +1,8 @@
 ./kafka-storage.sh random-uuid
 
-./kafka-storage.sh format -t UipIybVHTFy3RMtPYVWNhA -c ../config/kraft/server-1.properties
-./kafka-storage.sh format -t UipIybVHTFy3RMtPYVWNhA -c ../config/kraft/server-2.properties
-./kafka-storage.sh format -t UipIybVHTFy3RMtPYVWNhA -c ../config/kraft/server-3.properties
+./kafka-storage.sh format -t dtne9W8ZRuaYZT0Bh1OxFQ -c ../config/kraft/server-1.properties
+./kafka-storage.sh format -t dtne9W8ZRuaYZT0Bh1OxFQ -c ../config/kraft/server-2.properties
+./kafka-storage.sh format -t dtne9W8ZRuaYZT0Bh1OxFQ -c ../config/kraft/server-3.properties
 
 ./kafka-server-start.sh ../config/kraft/server-3.properties
 ./kafka-server-start.sh ../config/kraft/server-2.properties
