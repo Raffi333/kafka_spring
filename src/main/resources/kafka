@@ -10,6 +10,8 @@
 
 
 ./kafka-topics.sh --list --bootstrap-server localhost:9092,localhost:9094
+.\kafka-topics.bta --list --bootstrap-server localhost:9092,localhost:9094
 
 ./kafka-console-consumer.sh --bootstrap-server localhost:9092,localhost:9094 --topic product-created-event-topic --property "print.key=true"
+.\kafka-console-consumer.sh --bootstrap-server localhost:9092,localhost:9094 --topic product-created-event-topic --property "print.key=true"
 
