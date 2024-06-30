@@ -34,7 +34,7 @@ public class KafkaConfiguration {
     private String requestTimeout;
     @Value("${spring.kafka.producer.properties.enable.idempotence}")
     private String idempotence;
-    @Value("${spring.kafka.producer.properties.max.in.flight.requests.per.connection=5}")
+    @Value("${spring.kafka.producer.properties.max.in.flight.requests.per.connection}")
     private String flightRequestPerConnection;
 
     private Map<String, Object> getKafkaConfigProperties() {
